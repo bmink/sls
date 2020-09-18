@@ -1037,7 +1037,7 @@ hiredis_srandmember(const char *key, int cnt, barr_t *resp)
 	err = 0;
 	r = NULL;
 
-	r = _redisCommand("SRANDMEMBER %s %d %d", key, cnt);
+	r = _redisCommand("SRANDMEMBER %s %d", key, cnt);
 
 	if(r == NULL) {
 		blogf("Error while sending command to redis: NULL reply");

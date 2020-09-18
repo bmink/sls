@@ -152,10 +152,9 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		goto end_label;
 	}
 
-#if 0
 	ret = hiredis_srandmember(rediskey, maxcnt, elems);
 	if(ret != 0) {
-		blogf("Couldn't do srandmemner: %s", strerror(ret));
+		blogf("Couldn't do srandmember: %s", strerror(ret));
 		err = ret;
 		goto end_label;
 	}
@@ -166,7 +165,6 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		bprintf(resp, "\n\n");
         }
 	
-#endif
 
 
 end_label:
