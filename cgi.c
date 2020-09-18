@@ -180,7 +180,7 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		if(!bstrempty(alb->sa_caurl_med)) {
 			bprintf(resp, "<img src=\"");
 			bstrcat_entenc(resp, bget(alb->sa_caurl_med));
-			bprintf(resp, "\" width=\"200\">");
+			bprintf(resp, "\" xwidth=\"200\">");
 			bprintf(resp, "\n");
 		}
 		bprintf(resp, "Artist: ");
@@ -189,9 +189,9 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		bprintf(resp, "Name:   ");
 		bstrcat_entenc(resp, bget(alb->sa_name));
 		bprintf(resp, "\n");
-		bprintf(resp, "<a href=\"");
-		bstrcat_entenc(resp, bget(alb->sa_uri));
-		bprintf(resp, ">Open</a>");
+		bprintf(resp, "<a target=_blank href=\"");
+		bstrcat_entenc(resp, bget(alb->sa_url));
+		bprintf(resp, "\">Open</a>");
 		bprintf(resp, "\n");
 
 		slsalb_uninit(&alb);
