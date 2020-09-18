@@ -1,5 +1,5 @@
 *.o
-pusherman
+sls
 *.swp
 *.html
 
