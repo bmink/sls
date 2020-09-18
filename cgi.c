@@ -81,6 +81,8 @@ cgi_index(bstr_t *resp, const char *execn)
 
 	cgi_header("SLS", resp);
 
+	bprintf(resp, "ALL:\n\n");
+
 	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS, resp);
 
 	cgi_footer(resp);
@@ -115,7 +117,11 @@ cgi_header(const char *title, bstr_t *resp)
 	bstrcat_entenc(resp, title);
 	bprintf(resp, "</title>\n");
 	bprintf(resp, " </head>\n");
-	bprintf(resp, " <body ondblclick=\"location.reload();\">\n");
+	/* Using this weird looking assignment below seems to do what we
+	 * want, namely to jump back to the top of the page upon reload.
+	 * Using location.reload(); doesn't jump back to the top. */
+	bprintf(resp, " <body ondblclick=\"location.href = location.href;\">"
+	    "\n");
 	bprintf(resp, "  <pre>\n");
 }
 
@@ -161,8 +167,8 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		goto end_label;
 	}
 
-        for(elem = (bstr_t *) barr_begin(elems);
-            elem < (bstr_t *) barr_end(elems); ++elem) {
+	for(elem = (bstr_t *) barr_begin(elems);
+	    elem < (bstr_t *) barr_end(elems); ++elem) {
 		alb = slsalb_init(NULL);
 		if(!alb) {
 			blogf("Couldn't allocate alb");
@@ -197,7 +203,7 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		slsalb_uninit(&alb);
 
 		bprintf(resp, "\n\n");
-        }
+	}
 
 
 end_label:
