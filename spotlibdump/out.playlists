@@ -1,0 +1,690 @@
+Getting saved albums...
+Done.
+Getting albums from liked tracks...
+Done.
+Getting playlists...
+{
+  "href" : "https://api.spotify.com/v1/users/1210243824/playlists?offset=0&limit=20",
+  "items" : [ {
+    "collaborative" : false,
+    "description" : "Vinyl Digital &amp; Friends - VinDig Label // hip hop // beats to study // homework // home office // beat art // lo-fi // instrumental // jazz vibes // vinyl love // downtempo // soul // chillhop // lush vibes // jazzy boom bap // jazz hop _www.<a href=\"http://vinyl-digital.com\">vinyl-digital.com</a>",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/0rBeGrwwDxVixlouURb83M"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/0rBeGrwwDxVixlouURb83M",
+    "id" : "0rBeGrwwDxVixlouURb83M",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84b93ed395784a7050e47c933a",
+      "width" : null
+    } ],
+    "name" : "Vinyl Digital & Friends (Lo-Fi Beats, Beats to Relax, Jazzhop, Instrumental HipHop)",
+    "owner" : {
+      "display_name" : "Vinyl Digital",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/vindigital"
+      },
+      "href" : "https://api.spotify.com/v1/users/vindigital",
+      "id" : "vindigital",
+      "type" : "user",
+      "uri" : "spotify:user:vindigital"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTEzOSxkMTQyMTcwZjIxYmQyZjdiMDM3NGE5YWMyZTkwY2JhZTQzN2U4MDQ5",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/0rBeGrwwDxVixlouURb83M/tracks",
+      "total" : 200
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:0rBeGrwwDxVixlouURb83M"
+  }, {
+    "collaborative" : false,
+    "description" : "Dusty lo-fi beats from Papercup Record&#x27;s sublabel A CUP OF GOOD HOPE feat. Mr Mantega, Moonspatz, Yang Nips, keko.the.dog, Gimme A Break, Mølto, Yawn Shop, Zaiko and more #boombap #chill #lofi #jazzhop",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/3Z4IdofMBIjhU3weMV4MuR"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/3Z4IdofMBIjhU3weMV4MuR",
+    "id" : "3Z4IdofMBIjhU3weMV4MuR",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da8431d8bf887eb9681596e3f74a",
+      "width" : null
+    } ],
+    "name" : "A Cup Of Beats (Lo-Fi HipHop)",
+    "owner" : {
+      "display_name" : "Papercup Records",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/xhomyds8hv56cmu8vl604fmdl"
+      },
+      "href" : "https://api.spotify.com/v1/users/xhomyds8hv56cmu8vl604fmdl",
+      "id" : "xhomyds8hv56cmu8vl604fmdl",
+      "type" : "user",
+      "uri" : "spotify:user:xhomyds8hv56cmu8vl604fmdl"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "ODMsMWQzZjQyNGQ0MDM4OWI0ZDkyNzhiNWMyZDU4YjliNjVkOTYyMTcwYw==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/3Z4IdofMBIjhU3weMV4MuR/tracks",
+      "total" : 36
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:3Z4IdofMBIjhU3weMV4MuR"
+  }, {
+    "collaborative" : false,
+    "description" : "The perfect playlist for your studies or work, stay chill.  Lofi beats, chillhop, and smooth chill vibes all day long",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/0jGUk5ypbzVxhRAomWylLf"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/0jGUk5ypbzVxhRAomWylLf",
+    "id" : "0jGUk5ypbzVxhRAomWylLf",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84950d6cdb1e68c5a42530798f",
+      "width" : null
+    } ],
+    "name" : "Lofi Mood",
+    "owner" : {
+      "display_name" : "Lofi Mood",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/z3fldv4ryiafguqyihyi48z3l"
+      },
+      "href" : "https://api.spotify.com/v1/users/z3fldv4ryiafguqyihyi48z3l",
+      "id" : "z3fldv4ryiafguqyihyi48z3l",
+      "type" : "user",
+      "uri" : "spotify:user:z3fldv4ryiafguqyihyi48z3l"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NTAsY2U3YWYxOTI3NjQxNDBmMjU4YjVjNDliNjdmOGU3YTViODY2NzQ1NQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/0jGUk5ypbzVxhRAomWylLf/tracks",
+      "total" : 45
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:0jGUk5ypbzVxhRAomWylLf"
+  }, {
+    "collaborative" : false,
+    "description" : "Check some of the tunes I&#x27;m playing often in the last days.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/25gGsjgCAiy13YG7w1UJp0"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/25gGsjgCAiy13YG7w1UJp0",
+    "id" : "25gGsjgCAiy13YG7w1UJp0",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da8485499b413f8b130cbba69ae7",
+      "width" : null
+    } ],
+    "name" : "Brous One Favorites | Juslikedat",
+    "owner" : {
+      "display_name" : "brousone",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/brousone"
+      },
+      "href" : "https://api.spotify.com/v1/users/brousone",
+      "id" : "brousone",
+      "type" : "user",
+      "uri" : "spotify:user:brousone"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MzQsMzBmYjY0MDcwN2MyOGEyOGM5YjBkZDc1MTYxN2MzNWQ5OTBiNWVjNg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/25gGsjgCAiy13YG7w1UJp0/tracks",
+      "total" : 74
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:25gGsjgCAiy13YG7w1UJp0"
+  }, {
+    "collaborative" : false,
+    "description" : "LoFi Hip-Hop Beats to chill and relax to. Curated by ear-sight Berlin",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7Cm59RUROmelua5YhvVRrZ"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7Cm59RUROmelua5YhvVRrZ",
+    "id" : "7Cm59RUROmelua5YhvVRrZ",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84e730ab19d86b2093784a5bfc",
+      "width" : null
+    } ],
+    "name" : "Berlin Lo-Fi",
+    "owner" : {
+      "display_name" : "ear-sight",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/im9fzpb07vci6fgg9ao4372mn"
+      },
+      "href" : "https://api.spotify.com/v1/users/im9fzpb07vci6fgg9ao4372mn",
+      "id" : "im9fzpb07vci6fgg9ao4372mn",
+      "type" : "user",
+      "uri" : "spotify:user:im9fzpb07vci6fgg9ao4372mn"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTU5LGZiNmIxYmIwOWEyNDdmYWIwYjY3NzI3MmM3ODc4MjQxZDdhMWRmYzg=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7Cm59RUROmelua5YhvVRrZ/tracks",
+      "total" : 28
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7Cm59RUROmelua5YhvVRrZ"
+  }, {
+    "collaborative" : false,
+    "description" : "shuffle ~~~ not just lofi &#x2F;&#x2F;&#x2F; a scattering of all the stuff I been listening to recently",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/2d41hHBRhcKX5k7T1KkYXP"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/2d41hHBRhcKX5k7T1KkYXP",
+    "id" : "2d41hHBRhcKX5k7T1KkYXP",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84b11f3e8f66fc8cae09903a14",
+      "width" : null
+    } ],
+    "name" : "/// tai.kun selects ///",
+    "owner" : {
+      "display_name" : "Tai.Kun",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/77f14rtthy1b51yqwy3jlk8rr"
+      },
+      "href" : "https://api.spotify.com/v1/users/77f14rtthy1b51yqwy3jlk8rr",
+      "id" : "77f14rtthy1b51yqwy3jlk8rr",
+      "type" : "user",
+      "uri" : "spotify:user:77f14rtthy1b51yqwy3jlk8rr"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "ODAsMzc4MjkwZDU5MzBjYThjYTQ3NjczODZmYWIwZWZkMDI1YzMxM2I3YQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/2d41hHBRhcKX5k7T1KkYXP/tracks",
+      "total" : 372
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:2d41hHBRhcKX5k7T1KkYXP"
+  }, {
+    "collaborative" : false,
+    "description" : "Probably the better Techno Bunker?! Follow for the best Techno tracks 2020! Weekly updated.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/3ifXguT2UIneWLvg0jlZc3"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/3ifXguT2UIneWLvg0jlZc3",
+    "id" : "3ifXguT2UIneWLvg0jlZc3",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84b6c444451019499872972823",
+      "width" : null
+    } ],
+    "name" : "Techno Advisor // Best Techno Songs 2020",
+    "owner" : {
+      "display_name" : "klangspot",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/klangspot"
+      },
+      "href" : "https://api.spotify.com/v1/users/klangspot",
+      "id" : "klangspot",
+      "type" : "user",
+      "uri" : "spotify:user:klangspot"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "Mjc5OCw0MTU0OTU3OTJlZDM5YTM4MDQyNzAxZGI5YjdlMzVkODUwOWM3MDc0",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/3ifXguT2UIneWLvg0jlZc3/tracks",
+      "total" : 80
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:3ifXguT2UIneWLvg0jlZc3"
+  }, {
+    "collaborative" : false,
+    "description" : ".",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/1rq5TZtl1Z46v2gRAMtmmW"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/1rq5TZtl1Z46v2gRAMtmmW",
+    "id" : "1rq5TZtl1Z46v2gRAMtmmW",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da840843ae56f51f124baf12b5a3",
+      "width" : null
+    } ],
+    "name" : "Ninja Tune - New Releases",
+    "owner" : {
+      "display_name" : "Ninja Tune",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/ninja-tune"
+      },
+      "href" : "https://api.spotify.com/v1/users/ninja-tune",
+      "id" : "ninja-tune",
+      "type" : "user",
+      "uri" : "spotify:user:ninja-tune"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjE4OSxjNGZhNDliNDM5OWZiMGM0YmY0Yzc4ZGZlZDU1OTZiY2RjMWRjMjI4",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/1rq5TZtl1Z46v2gRAMtmmW/tracks",
+      "total" : 40
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:1rq5TZtl1Z46v2gRAMtmmW"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4qbWC3a7tm3v"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbWC3a7tm3v",
+    "id" : "37i9dQZF1E4qbWC3a7tm3v",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://seeded-session-images.scdn.co/v1/img/artist/1YzCsTRb22dQkh9lghPIrp/en",
+      "width" : null
+    } ],
+    "name" : "Billie Holiday Radio",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjY0MzEzOTgsMDAwMDAwMDBjYjMwYjI5MDFmMzU0NmU0MDlmMGE5ZGUxYmUxYzhjZg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbWC3a7tm3v/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E4qbWC3a7tm3v"
+  }, {
+    "collaborative" : false,
+    "description" : "A look back at this fruitful era comprising trip-hop heavyweights, electronica's vanguard and everything in between.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXcG4kXwIFULb"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcG4kXwIFULb",
+    "id" : "37i9dQZF1DXcG4kXwIFULb",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f000000020ad2cd2ec2fb6ead54087330",
+      "width" : null
+    } ],
+    "name" : "Chillout Classics",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTU4NTg4MzkyNywwMDAwMDAwMGQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0Mjdl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcG4kXwIFULb/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DXcG4kXwIFULb"
+  }, {
+    "collaborative" : false,
+    "description" : "All of the classic hits from the 50s and 60s.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX56bqlsMxJYR"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX56bqlsMxJYR",
+    "id" : "37i9dQZF1DX56bqlsMxJYR",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000002a419f6051d1a6a4dfabbdc6f",
+      "width" : null
+    } ],
+    "name" : "Classic Oldies",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTU4NTg4MzkyNywwMDAwMDAwMGQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0Mjdl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX56bqlsMxJYR/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX56bqlsMxJYR"
+  }, {
+    "collaborative" : false,
+    "description" : "Feat: Saison, Toman, Dusky. Our favorite selections of lofi, minimal techno, and deep house. Perfect for morning or late night...Submit: https:&#x2F;&#x2F;www.submithub.com&#x2F;blog&#x2F;routine-espresso",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/4BdiUt5NipNNEUp3XsKt84"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/4BdiUt5NipNNEUp3XsKt84",
+    "id" : "4BdiUt5NipNNEUp3XsKt84",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da8421e89c902679b62ce9bf1ca5",
+      "width" : null
+    } ],
+    "name" : "Coffee House (Lofi & Deep) [Routine Espresso]",
+    "owner" : {
+      "display_name" : "Matt Norcott",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/128098354"
+      },
+      "href" : "https://api.spotify.com/v1/users/128098354",
+      "id" : "128098354",
+      "type" : "user",
+      "uri" : "spotify:user:128098354"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTAzNSw5MGEzODg5ZGYyY2UyNjk2YTYyZDFmZjUxNDFkYzk4ZjU1ZDM1M2Vi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/4BdiUt5NipNNEUp3XsKt84/tracks",
+      "total" : 53
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:4BdiUt5NipNNEUp3XsKt84"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/1Cz2j2OMMSEEJBQLRR4Me5"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/1Cz2j2OMMSEEJBQLRR4Me5",
+    "id" : "1Cz2j2OMMSEEJBQLRR4Me5",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27318c820cbedbba3630b86ce76ab67616d0000b27328beb66e030313e8949922f7ab67616d0000b2737e0f9cd686104c9a8c25428aab67616d0000b273b661fce74d31082316a82c1d",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27318c820cbedbba3630b86ce76ab67616d0000b27328beb66e030313e8949922f7ab67616d0000b2737e0f9cd686104c9a8c25428aab67616d0000b273b661fce74d31082316a82c1d",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27318c820cbedbba3630b86ce76ab67616d0000b27328beb66e030313e8949922f7ab67616d0000b2737e0f9cd686104c9a8c25428aab67616d0000b273b661fce74d31082316a82c1d",
+      "width" : 60
+    } ],
+    "name" : "The Captain's 2019 Picks",
+    "owner" : {
+      "display_name" : "captleasure",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/captleasure"
+      },
+      "href" : "https://api.spotify.com/v1/users/captleasure",
+      "id" : "captleasure",
+      "type" : "user",
+      "uri" : "spotify:user:captleasure"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTgzLDFkNTMzNTYyZWZkZjI2YmE0NDczNGMxNjFkZGU0MjI5NTU0ZmY1NDI=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/1Cz2j2OMMSEEJBQLRR4Me5/tracks",
+      "total" : 43
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:1Cz2j2OMMSEEJBQLRR4Me5"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/0nTMtDqtnfOTHi6rvkqOox"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/0nTMtDqtnfOTHi6rvkqOox",
+    "id" : "0nTMtDqtnfOTHi6rvkqOox",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27326fe3c6fa21c88f011150f6cab67616d0000b27362ca7110ef789841225c0dd6ab67616d0000b27388213b62319391eead3e8657ab67616d0000b273d22a86eae4686b3389dfbedb",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27326fe3c6fa21c88f011150f6cab67616d0000b27362ca7110ef789841225c0dd6ab67616d0000b27388213b62319391eead3e8657ab67616d0000b273d22a86eae4686b3389dfbedb",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27326fe3c6fa21c88f011150f6cab67616d0000b27362ca7110ef789841225c0dd6ab67616d0000b27388213b62319391eead3e8657ab67616d0000b273d22a86eae4686b3389dfbedb",
+      "width" : 60
+    } ],
+    "name" : "Numero Uno",
+    "owner" : {
+      "display_name" : "robotdouble",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/robotdouble"
+      },
+      "href" : "https://api.spotify.com/v1/users/robotdouble",
+      "id" : "robotdouble",
+      "type" : "user",
+      "uri" : "spotify:user:robotdouble"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTYyLGRhZjhiMjNhY2EwYmVmNmQyZmVlMzJkNTlkZGVkODkzYzJlOWJhMmM=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/0nTMtDqtnfOTHi6rvkqOox/tracks",
+      "total" : 22
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:0nTMtDqtnfOTHi6rvkqOox"
+  }, {
+    "collaborative" : false,
+    "description" : "What we are playing on the radio, spinning in the club, and vibing to in the office. Arrange by date added for the latest additions <a href=\"http://wearerhythmsection.com/\">More info</a>",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5kHFGyJEtLqlLXTNqSP9Em"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5kHFGyJEtLqlLXTNqSP9Em",
+    "id" : "5kHFGyJEtLqlLXTNqSP9Em",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84470d2d5d96db6702ed8d0203",
+      "width" : null
+    } ],
+    "name" : "RHYTHM SECTION HQ",
+    "owner" : {
+      "display_name" : "Rhythm Section International",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/rhythmsectioninternational"
+      },
+      "href" : "https://api.spotify.com/v1/users/rhythmsectioninternational",
+      "id" : "rhythmsectioninternational",
+      "type" : "user",
+      "uri" : "spotify:user:rhythmsectioninternational"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTMwOSw4M2E0ZWYxOWQyNTM0NTE2MTBkYTI2ODIyYmIyZmM1ZGY0NDMzOTAx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5kHFGyJEtLqlLXTNqSP9Em/tracks",
+      "total" : 1030
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5kHFGyJEtLqlLXTNqSP9Em"
+  }, {
+    "collaborative" : false,
+    "description" : "The songs you loved most this year, all wrapped up.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1Etq6Wka7wSljl"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1Etq6Wka7wSljl",
+    "id" : "37i9dQZF1Etq6Wka7wSljl",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/your-top-songs-2019_DEFAULT-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2019",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjYyNjk3NjIsMDAwMDAwMDBjYmY1MTY0ZWMyNWY1MmJmOWYyNmEzNzhlZGZlMjg2Mw==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1Etq6Wka7wSljl/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1Etq6Wka7wSljl"
+  }, {
+    "collaborative" : false,
+    "description" : "quality &gt; quantity unlike a lot of these",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/6XwL7OmQdpOy8kIRifD2rW"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/6XwL7OmQdpOy8kIRifD2rW",
+    "id" : "6XwL7OmQdpOy8kIRifD2rW",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84485927579dff52e6f52ddc6d",
+      "width" : null
+    } ],
+    "name" : "lo-fi",
+    "owner" : {
+      "display_name" : "Benjamin Hasselberg",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1110084508"
+      },
+      "href" : "https://api.spotify.com/v1/users/1110084508",
+      "id" : "1110084508",
+      "type" : "user",
+      "uri" : "spotify:user:1110084508"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTcwLGY0YWY1YTBmZGUyYTg1Njg4NzYxMTI5NjI2NzEyYzRhZDc3Y2JiYjI=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/6XwL7OmQdpOy8kIRifD2rW/tracks",
+      "total" : 84
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:6XwL7OmQdpOy8kIRifD2rW"
+  }, {
+    "collaborative" : false,
+    "description" : "STEREO At Its Best...When You Hear It On COLD BUSTED - Everything We Got",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5NDzdrbC4R7kT4vXFDlxkC"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5NDzdrbC4R7kT4vXFDlxkC",
+    "id" : "5NDzdrbC4R7kT4vXFDlxkC",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706c0000da84b56eddee1e08f119405f34d6",
+      "width" : null
+    } ],
+    "name" : "Cold Busted Beats For Days - Instrumental Hip Hop Beats",
+    "owner" : {
+      "display_name" : "coldbustedrecordcompany",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/fe78mrv41du1tlv4zyx775exi"
+      },
+      "href" : "https://api.spotify.com/v1/users/fe78mrv41du1tlv4zyx775exi",
+      "id" : "fe78mrv41du1tlv4zyx775exi",
+      "type" : "user",
+      "uri" : "spotify:user:fe78mrv41du1tlv4zyx775exi"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NDM0LGVlZmM1YTkyMDJmMzc4MTUyYTE0NTE3YTdkNzkyNWU3OWJlNWVkOTI=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5NDzdrbC4R7kT4vXFDlxkC/tracks",
+      "total" : 3552
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5NDzdrbC4R7kT4vXFDlxkC"
+  }, {
+    "collaborative" : false,
+    "description" : "The ultimate playlist to fuel your good mood while on the road.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX9wC1KY45plY"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX9wC1KY45plY",
+    "id" : "37i9dQZF1DX9wC1KY45plY",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000002fd076b5e9bdffcd1929c7290",
+      "width" : null
+    } ],
+    "name" : "Classic Road Trip Songs",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTU4NTg4MzkyNywwMDAwMDAwMGQ0MWQ4Y2Q5OGYwMGIyMDRlOTgwMDk5OGVjZjg0Mjdl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX9wC1KY45plY/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX9wC1KY45plY"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/46LFAEYJ7t75YFf5KCebLh"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/46LFAEYJ7t75YFf5KCebLh",
+    "id" : "46LFAEYJ7t75YFf5KCebLh",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b2733b7bf70364c3f8643723398e",
+      "width" : 640
+    } ],
+    "name" : "road trip",
+    "owner" : {
+      "display_name" : "Barna Mink",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1210243824"
+      },
+      "href" : "https://api.spotify.com/v1/users/1210243824",
+      "id" : "1210243824",
+      "type" : "user",
+      "uri" : "spotify:user:1210243824"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "Myw2NzAxMTAyMzA4YjBkMzc1NzU5YmYyNTcwNmExZjZjNGMxYjBlODZi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/46LFAEYJ7t75YFf5KCebLh/tracks",
+      "total" : 2
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:46LFAEYJ7t75YFf5KCebLh"
+  } ],
+  "limit" : 20,
+  "next" : "https://api.spotify.com/v1/users/1210243824/playlists?offset=20&limit=20",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 122
+}
