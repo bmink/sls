@@ -134,16 +134,18 @@ void cgi_footer(bstr_t *resp)
 int
 cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 {
-	int 	err;
-	barr_t	*elems;
-	bstr_t	*elem;
-	int	ret;
+	int 		err;
+	barr_t		*elems;
+	bstr_t		*elem;
+	int		ret;
+	slsalb_t	*alb;
 
 	if(xstrempty(rediskey) || !resp)
 		return EINVAL;
 
 	err = 0;
 	elems = NULL;
+	alb = NULL;
 
 	elems = barr_init(sizeof(bstr_t));
 	if(elems == NULL) {
@@ -161,10 +163,41 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 
         for(elem = (bstr_t *) barr_begin(elems);
             elem < (bstr_t *) barr_end(elems); ++elem) {
-                bstrcat_entenc(resp, bget(elem));
+		alb = slsalb_init(NULL);
+		if(!alb) {
+			blogf("Couldn't allocate alb");
+			err = ENOMEM;
+			goto end_label;
+		}
+
+		ret = slsalb_fromjson(bget(elem), alb);
+		if(ret != 0) {
+			blogf("Couldn't parse album");
+			err = ret;
+			goto end_label;
+		}
+
+		if(!bstrempty(alb->sa_caurl_med)) {
+			bprintf(resp, "<img src=\"");
+			bstrcat_entenc(resp, bget(alb->sa_caurl_med));
+			bprintf(resp, "\" width=\"200\">");
+			bprintf(resp, "\n");
+		}
+		bprintf(resp, "Artist: ");
+		bstrcat_entenc(resp, bget(alb->sa_artist));
+		bprintf(resp, "\n");
+		bprintf(resp, "Name:   ");
+		bstrcat_entenc(resp, bget(alb->sa_name));
+		bprintf(resp, "\n");
+		bprintf(resp, "<a href=\"");
+		bstrcat_entenc(resp, bget(alb->sa_uri));
+		bprintf(resp, ">Open</a>");
+		bprintf(resp, "\n");
+
+		slsalb_uninit(&alb);
+
 		bprintf(resp, "\n\n");
         }
-	
 
 
 end_label:
@@ -174,6 +207,8 @@ end_label:
 		buninit_(elem);
 	}
 	barr_uninit(&elems);
+
+	slsalb_uninit(&alb);
 
 	return err;
 

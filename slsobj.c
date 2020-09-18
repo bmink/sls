@@ -206,3 +206,80 @@ end_label:
 
 	return err;
 }
+
+
+int
+slsalb_fromjson(const char *buf, slsalb_t *alb)
+{
+        cJSON   *json;
+        int     err;
+        int     ret;
+
+        if(xstrempty(buf) || alb == NULL)
+                return EINVAL;
+
+        err = 0;
+        json = NULL;
+
+        json = cJSON_Parse(buf);
+        if(json == NULL) {
+                blogf("Couldn't parse JSON");
+                err = ENOEXEC;
+                goto end_label;
+        }
+
+        ret = cjson_get_childstr(json, "type", alb->sa_type);
+        if(ret != 0) {
+                blogf("JSON didn't contain type");
+                err = ENOENT;
+                goto end_label;
+        }
+
+        ret = cjson_get_childstr(json, "artist", alb->sa_artist);
+        if(ret != 0) {
+                blogf("JSON didn't contain artist");
+                err = ENOENT;
+                goto end_label;
+        }
+
+        ret = cjson_get_childstr(json, "name", alb->sa_name);
+        if(ret != 0) {
+                blogf("JSON didn't contain name");
+                err = ENOENT;
+                goto end_label;
+        }
+
+        ret = cjson_get_childstr(json, "uri", alb->sa_uri);
+        if(ret != 0) {
+                blogf("JSON didn't contain uri");
+                err = ENOENT;
+                goto end_label;
+        }
+
+
+        ret = cjson_get_childstr(json, "url", alb->sa_url);
+        if(ret != 0) {
+                blogf("JSON didn't contain name");
+                err = ENOENT;
+                goto end_label;
+        }
+
+        ret = cjson_get_childstr(json, "caurl_lrg", alb->sa_caurl_lrg);
+	/* OK to not have. */
+
+        ret = cjson_get_childstr(json, "caurl_med", alb->sa_caurl_med);
+	/* OK to not have. */
+
+        ret = cjson_get_childstr(json, "caurl_sml", alb->sa_caurl_sml);
+	/* OK to not have. */
+
+
+end_label:
+
+        if(json != NULL) {
+                cJSON_Delete(json);
+                json = NULL;
+        }
+
+        return err;
+}

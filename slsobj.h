@@ -22,6 +22,7 @@ typedef struct slsalb {
 slsalb_t *slsalb_init(const char *);
 void slsalb_uninit(slsalb_t **);
 int slsalb_tojson(slsalb_t *, bstr_t *);
+int slsalb_fromjson(const char *, slsalb_t *);
 
 
 typedef struct slspl {
