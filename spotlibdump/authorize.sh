@@ -29,8 +29,8 @@ PORT=8082
 REDIRECT_URI="http%3A%2F%2Flocalhost%3A$PORT%2F"
 SCOPES="playlist-read-private user-library-read user-modify-playback-state"
 AUTH_URL="https://accounts.spotify.com/authorize/?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URI"
-REDIS_KEY_CREDS="spotlibdump:credentials"
-REDIS_KEY_ACCESSTOK="spotlibdump:access_token"
+REDIS_KEY_CREDS="sls:spotify:credentials"
+REDIS_KEY_ACCESSTOK="sls:spotify:access_token"
 
 if [[ ! -z $SCOPES ]]; then
 	ENCODED_SCOPES=$(echo $SCOPES| tr ' ' '%' | sed s/%/%20/g)

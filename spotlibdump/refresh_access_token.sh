@@ -6,8 +6,8 @@ if [[ -z "$REDIS_ADDR" ]]; then
 fi
 
 REDIS_CLI="/home/bmink/bin/redis-cli"
-REDIS_KEY_CREDS="spotlibdump:credentials"
-REDIS_KEY_ACCESSTOK="spotlibdump:access_token"
+REDIS_KEY_CREDS="sls:spotify:credentials"
+REDIS_KEY_ACCESSTOK="sls:spotify:access_token"
 
 KEY_EXISTS=`$REDIS_CLI -h $REDIS_ADDR --raw exists "$REDIS_KEY_CREDS"`
 

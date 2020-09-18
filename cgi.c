@@ -77,6 +77,8 @@ cgi_index(bstr_t *resp, const char *execn)
 
 	cgi_header("SLS", resp);
 
+	cgi_randalbs(resp);
+
 	cgi_footer(resp);
 
 	return 0;
