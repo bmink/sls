@@ -71,7 +71,7 @@ end_label:
 }
 
 
-#define CGI_MAXITEMS	10
+#define CGI_MAXITEMS	20
 
 int
 cgi_index(bstr_t *resp, const char *execn)
@@ -145,6 +145,7 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 	bstr_t		*elem;
 	int		ret;
 	slsalb_t	*alb;
+	int		cnt;
 
 	if(xstrempty(rediskey) || !resp)
 		return EINVAL;
@@ -167,6 +168,10 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		goto end_label;
 	}
 
+	bprintf(resp, "<table width=\"100%\">\n");
+	
+	cnt = 0;
+
 	for(elem = (bstr_t *) barr_begin(elems);
 	    elem < (bstr_t *) barr_end(elems); ++elem) {
 		alb = slsalb_init(NULL);
@@ -183,16 +188,19 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 			goto end_label;
 		}
 
+		if(cnt % 2 == 0)
+			bprintf(resp, " <tr>\n");
+
+		bprintf(resp, "  <td width=\"50%\"><pre>\n");
+
 		if(!bstrempty(alb->sa_caurl_med)) {
 			bprintf(resp, "<img src=\"");
 			bstrcat_entenc(resp, bget(alb->sa_caurl_med));
 			bprintf(resp, "\" xwidth=\"200\">");
 			bprintf(resp, "\n");
 		}
-		bprintf(resp, "Artist: ");
 		bstrcat_entenc(resp, bget(alb->sa_artist));
 		bprintf(resp, "\n");
-		bprintf(resp, "Name:   ");
 		bstrcat_entenc(resp, bget(alb->sa_name));
 		bprintf(resp, "\n");
 		bprintf(resp, "<a target=_blank href=\"");
@@ -202,8 +210,17 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 
 		slsalb_uninit(&alb);
 
-		bprintf(resp, "\n\n");
+		bprintf(resp, "  </pre></td>\n");
+
+		++cnt;
+		if(cnt % 2 == 0)
+			bprintf(resp, " </tr>\n");
 	}
+
+	if(cnt % 2 == 1)
+		bprintf(resp, " <td></td></tr>\n");
+
+	bprintf(resp, "</table>\n");
 
 
 end_label:
