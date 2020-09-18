@@ -76,6 +76,7 @@ main(int argc, char **argv)
 
 end_label:
 
+
 	hiredis_uninit();
 
 	(void) blog_uninit();
