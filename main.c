@@ -3,6 +3,7 @@
 #include <libgen.h>
 #include "bstr.h"
 #include "blog.h"
+#include "bcurl.h"
 #include "hiredis_helper.h"
 #include "cli.h"
 #include "cgi.h"
@@ -56,6 +57,12 @@ main(int argc, char **argv)
 		goto end_label;
 	}
 
+	ret = bcurl_init();
+	if(ret != 0) {
+		fprintf(stderr, "Couldn't initialize curl\n");
+		goto end_label;
+	}
+
 	ret = hiredis_init();
 	if(ret != 0) {
 		fprintf(stderr, "Could not connect to redis\n");
@@ -73,9 +80,9 @@ main(int argc, char **argv)
 		break;
 	}
 		
-
 end_label:
 
+	bcurl_uninit();
 
 	hiredis_uninit();
 

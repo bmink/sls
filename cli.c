@@ -1,3 +1,11 @@
+int
+cli_loop(void)
+{
+	return 0;
+}
+
+#if 0
+
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
@@ -650,3 +658,4 @@ cli_pmihist_getidx(int idx)
 	return NULL;
 }
 
+#endif

@@ -1,5 +1,5 @@
 P = sls
-OBJS = main.o cgi.o slsobj.o cJSON_helper.o
+OBJS = main.o cgi.o slsobj.o cJSON_helper.o cJSON.o cli.o hiredis_helper.o
 CFLAGS = -g -Wall -Wstrict-prototypes
 LDLIBS = -lb -lcurl -lhiredis -lxml2 -lcrypto -lreadline
 
