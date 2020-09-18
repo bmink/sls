@@ -4,8 +4,12 @@
 #include "bcurl.h"
 #include "errno.h"
 #include "slsobj.h"
+#include "rediskeys.h"
+#include "hiredis_helper.h"
 
 int cgi_index(bstr_t *, const char *);
+
+int cgi_randitems(const char *, int, bstr_t *);
 
 void cgi_header(const char *, bstr_t *);
 void cgi_footer(bstr_t *);
@@ -67,17 +71,17 @@ end_label:
 }
 
 
+#define CGI_MAXITEMS	10
+
 int
 cgi_index(bstr_t *resp, const char *execn)
 {
-	int	ret;
-
 	if(resp == NULL)
 		return EINVAL;
 
 	cgi_header("SLS", resp);
 
-	cgi_randalbs(resp);
+	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS, resp);
 
 	cgi_footer(resp);
 
@@ -95,16 +99,16 @@ cgi_header(const char *title, bstr_t *resp)
 	bprintf(resp, " <head>\n");
 	bprintf(resp, "  <style>\n");
 	bprintf(resp, "body {\n");
-	bprintf(resp, "        background-color: black;\n");
-	bprintf(resp, "        color: white;\n");
-	bprintf(resp, "        font-weight: bold;\n");
+	bprintf(resp, "	background-color: black;\n");
+	bprintf(resp, "	color: white;\n");
+	bprintf(resp, "	font-weight: bold;\n");
 	bprintf(resp, "}\n");
 	bprintf(resp, "pre {\n");
-	bprintf(resp, "        white-space: pre-wrap;\n");
-	bprintf(resp, "        font-size: 25pt;\n");
+	bprintf(resp, "	white-space: pre-wrap;\n");
+	bprintf(resp, "	font-size: 25pt;\n");
 	bprintf(resp, "}\n");
 	bprintf(resp, "a {\n");
-	bprintf(resp, "        color: white;\n");
+	bprintf(resp, "	color: white;\n");
 	bprintf(resp, "}\n");
 	bprintf(resp, "  </style>\n");
 	bprintf(resp, "  <title>");
@@ -124,6 +128,59 @@ void cgi_footer(bstr_t *resp)
 	bprintf(resp, "  </pre>\n");
 	bprintf(resp, " </head>\n");
 	bprintf(resp, "</html>\n");
+}
+
+
+int
+cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
+{
+	int 	err;
+	barr_t	*elems;
+	bstr_t	*elem;
+	int	ret;
+
+	if(xstrempty(rediskey) || !resp)
+		return EINVAL;
+
+	err = 0;
+	elems = NULL;
+
+	elems = barr_init(sizeof(bstr_t));
+	if(elems == NULL) {
+		blogf("Couldn't allocate elems");
+		err = ENOMEM;
+		goto end_label;
+	}
+
+#if 0
+	ret = hiredis_srandmember(rediskey, maxcnt, elems);
+	if(ret != 0) {
+		blogf("Couldn't do srandmemner: %s", strerror(ret));
+		err = ret;
+		goto end_label;
+	}
+
+        for(elem = (bstr_t *) barr_begin(elems);
+            elem < (bstr_t *) barr_end(elems); ++elem) {
+                bstrcat_entenc(resp, bget(elem));
+		bprintf(resp, "\n\n");
+        }
+	
+#endif
+
+
+end_label:
+
+	for(elem = (bstr_t *) barr_begin(elems);
+	    elem < (bstr_t *) barr_end(elems); ++elem) {
+		buninit_(elem);
+	}
+	barr_uninit(&elems);
+
+	return err;
+
+
+
 }
 
 

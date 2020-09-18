@@ -9,7 +9,8 @@
 #include "cJSON.h"
 #include "cJSON_helper.h"
 #include "hiredis_helper.h"
-#include "slsobj.h"
+#include "../slsobj.h"
+#include "../rediskeys.h"
 
 bstr_t	*datadir;
 bstr_t	*access_tok;
@@ -28,10 +29,6 @@ int unset_repeat(void);
 #define MODE_UNSETREP	1
 
 #define SLSOBJ_TYPE_SPOT	"spotify"
-
-#define REDIS_KEY_ACCESSTOK	"spotlibdump:access_token"
-#define REDIS_KEY_S_ALBUMS_ALL	"spotlibdump:saved_albums:all"
-#define REDIS_KEY_LT_ALBUMS_ALL	"spotlibdump:liked_track_albums:all"
 
 
 int
@@ -230,7 +227,7 @@ load_access_tok(void)
 		goto end_label;
 	}
 
-	ret = hiredis_get(REDIS_KEY_ACCESSTOK, access_tok);
+	ret = hiredis_get(RK_SPOTIFY_ACCESSTOK, access_tok);
 	if(ret != 0 || bstrempty(access_tok)) {
 		fprintf(stderr, "Couldn't load access token: %s\n",
 		    strerror(ret));
@@ -342,10 +339,10 @@ dump_albums(int mode)
 		goto end_label;
 	}
 	if(mode == ALBMODE_SAVED_ALBUMS)
-		bprintf(rediskey, "%s", REDIS_KEY_S_ALBUMS_ALL);
+		bprintf(rediskey, "%s", RK_SPOTIFY_S_ALBUMS_ALL);
 	else
 	if(mode == ALBMODE_LIKED_TRACKS)
-		bprintf(rediskey, "%s", REDIS_KEY_LT_ALBUMS_ALL);
+		bprintf(rediskey, "%s", RK_SPOTIFY_LT_ALBUMS_ALL);
 
 	rediskey_tmp = binit();
 	if(!rediskey_tmp) {
