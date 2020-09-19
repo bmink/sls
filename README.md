@@ -1,8 +1,8 @@
 # sls
 
-SLS, the Simple/Sane/? Library Manager
+SLS, the Simple/Sane/Sweet/? Library Manager
 
-![](screenshot.jpg)
+![](screenshot.jpg?sdfa)
 
 
 Manage and browse your digital and physical music library
