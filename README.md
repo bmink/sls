@@ -14,8 +14,8 @@ The main function of SLS is to provide a starting point for listening, or to
 put simply, display a random selection of albums in the library in a clean &
 minimalist UI. Some things really just should be this simple... and yet this is
 100% impossible to do in any streaming music app I have ever tried. Spotify in
-particular does a very poor job of enabling the user to browse and
-"re-discover" items in her own library. Additionally, much has been written
+particular does a very poor job of enabling user to browse and
+"re-discover" items in their own library. Additionally, much has been written
 about whether the Spotify app's shuffle function is indeed random, to me it
 seems clear that it is not. (That said, there are things Spotify excels at,
 such as discovery, and the streaming experience itself.)
@@ -31,9 +31,8 @@ SLS *does not* replace the use of the various apps themselves. I still use
 Spotify for discovery, playback and library management itself. Similarly, I use
 the Discogs app to manage my vinyl collection. But now, whenever deciding what
 to listen to next, instead of being forced to use the various apps' subpar
-browsing models, I start with SLS. Invariably within a few seconds, I will see
-something that fits my mood or that I haven't heard in a long time and then can
-click through to the album in the Spotify app (or go play the record).
+browsing models, I start with SLS. Once I decide to play something, I click
+through to the album in the Spotify app (or go play the record).
 
 SLS runs on one of my Raspi servers. The library refresh jobs are run every few
 minutes via a cronjob and the libraries are stored in a Redis database (ie. if
