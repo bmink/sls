@@ -28,11 +28,11 @@ all libraries combined into one UI... hence SLS.
 
 SLS *does not* replace the use of the various apps themselves. I still use
 Spotify for discovery, playback and library management itself. Similarly, I use
-the Discogs app to manage my vinyl collection. But now, whenever deciding
-what to listen to next, instead of being forced into the various apps' browsing
-model, I start with SLS. Invariably within a few seconds, I will see something
-that fits my mood or that I haven't heard in a long time and then can click through
-to the album in the Spotify app (or go play the record).
+the Discogs app to manage my vinyl collection. But now, whenever deciding what
+to listen to next, instead of being forced to use the various apps' subpar
+browsing models, I start with SLS. Invariably within a few seconds, I will see
+something that fits my mood or that I haven't heard in a long time and then can
+click through to the album in the Spotify app (or go play the record).
 
 SLS runs on one of my Raspi servers. The library refresh jobs are run every few
 minutes via a cronjob and the libraries are stored in a Redis database (Ie. if
