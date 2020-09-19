@@ -2,7 +2,7 @@
 
 ![](screenshot.jpg)
 
-SLS integrates my various music libraries into a single database that's
+SLS integrates my various music libraries into a single database that is
 automatically kept up to date.
 
 Libraries currently supported:
@@ -16,7 +16,7 @@ minimalist UI. Some things really just should be this simple... and yet this is
 100% impossible to do in any streaming music app I have ever tried. Spotify in
 particular does a very poor job of enabling the user to browse and
 "re-discover" items in her own library. Additionally, much has been written
-about whether the Spotify app's random function is indeed random, to me it
+about whether the Spotify app's shuffle function is indeed random, to me it
 seems clear that it is not. (That said, there are things Spotify excels at,
 such as discovery, and the streaming experience itself.)
 
