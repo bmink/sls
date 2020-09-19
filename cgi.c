@@ -234,9 +234,5 @@ end_label:
 	slsalb_uninit(&alb);
 
 	return err;
-
-
-
 }
-
 
