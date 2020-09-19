@@ -1,4 +1,4 @@
-# SLS, the Simple/Sane/? Library System
+# SLS: Simple/Sane/? Library System
 
 ![](screenshot.jpg)
 
