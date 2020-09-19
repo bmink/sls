@@ -37,6 +37,8 @@ click through to the album in the Spotify app (or go play the record).
 SLS runs on one of my Raspi servers. The library refresh jobs are run every few
 minutes via a cronjob and the libraries are stored in a Redis database (Ie. if
 I add an album to my library in the Spotify app, it will show up in Redis
-(and SLS) automatically within a few minutes.)
+(and SLS) automatically within a few minutes.) The UI itself is done via a CGI
+program that is served via lighttpd.
+
 
 
