@@ -11,10 +11,10 @@ Libraries currently supported:
 * Vinyl (via Discogs Web API)
 
 The main function of SLS is to provide a starting point for listening, or to
-put simply, display a random selection of albums in the library in a clean &
+put simply, to display a random selection of albums in the library in a clean &
 minimalist UI. Some things really just should be this simple... and yet this is
 100% impossible to do in any streaming music app I have ever tried. Spotify in
-particular does a very poor job of enabling user to browse and
+particular does a very poor job of enabling users to browse and
 "re-discover" items in their own library. Additionally, much has been written
 about whether the Spotify app's shuffle function is indeed random, to me it
 seems clear that it is not. (That said, there are things Spotify excels at,
