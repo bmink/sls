@@ -1,11 +1,9 @@
-# sls
-
-SLS, the Simple/Sane/? Library System
+# SLS, the Simple/Sane/? Library System
 
 ![](screenshot.jpg)
 
 SLS integrates my various music libraries into a single database that's
-automatically kept up to date, and offers a simple browsing experience.
+automatically kept up to date.
 
 Libraries currently supported:
 
