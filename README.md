@@ -10,14 +10,15 @@ Libraries currently supported:
 * Spotify (via Spotify Web API)
 * Vinyl (via Discogs Web API)
 
-The main function of SLS is to display a random selection of albums in the
-library in a clean & minimalist UI, something that is impossible to do in any
-streaming music app I have ever tried. IMO Spotify in particuler does a very
-poor job of enabling the user to browse and "re-discover" items in her own
-library. Additionally, much has been written about whether the Spotify app's
-random function is indeed random, to me it seems clear that it is not. (That
-said, there are things Spotify excels at, such as discovery, and the streaming
-experience itself.)
+The main function of SLS is to provide a solid starting point for listening,
+or to put simply, display a random selection of albums in the library in a
+clean & minimalist UI. Some things really just should be this simple... and yet
+this is 100% impossible to do in any streaming music app I have ever
+tried. Spotify in particular does a very poor job of enabling the user to
+browse and "re-discover" items in her own library. Additionally, much has been
+written about whether the Spotify app's random function is indeed random, to me
+it seems clear that it is not. (That said, there are things Spotify excels at,
+such as discovery, and the streaming experience itself.)
 
 On the physical and digital media side, while many vinyl collectors use
 Discogs to catalogue their collection; and while the Discogs app does offer a
