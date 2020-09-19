@@ -20,11 +20,12 @@ about whether the Spotify app's shuffle function is indeed random, to me it
 seems clear that it is not. (That said, there are things Spotify excels at,
 such as discovery, and the streaming experience itself.)
 
-On the physical and digital media side, while many vinyl collectors use
-Discogs to catalogue their collection; and while the Discogs app does offer a
-"random album" function, it still misses the mark -- I like to see
-20 or so randomly selected albums at once. Plus, it would be nice to see
-all libraries combined into one UI... hence SLS.
+On the physical and digital media side, while many vinyl collectors use Discogs
+to catalogue their collection; and while the Discogs app does offer a "random
+album" function, it still misses the mark -- I like to see 20 or so randomly
+selected albums at once and a way to quickly refresh if I don't see anything I
+like. Plus, it would be nice to see all libraries combined into one UI... hence
+SLS.
 
 SLS *does not* replace the use of the various apps themselves. I still use
 Spotify for discovery, playback and library management itself. Similarly, I use
