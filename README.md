@@ -46,10 +46,10 @@ SLS has a few more tricks up its sleeve:
 * Display a random selection of "albums to listen to" (all time, as well as
   new). An "album to listen to" is any unsaved album that has at least one
   track favorited and that has at least three tracks total.
-* Automatically unset "repeat" in the player. I find it highly annoying that
-  Spotify constantly re-enables the "repeat" button in the player. Perhaps this
-  is what most users want and certainly this helps Spotify's streaming numbers.
-  I prefer the player to stop at the end of an album though. Luckily, Spotify's
-  Web API can control this setting, so I run a cronjob to unset the repeat
-  setting every minute.
+* Automatically unset "repeat" in the Spotify player. I find it highly
+  annoying that Spotify constantly re-enables the "repeat" button in the
+  player. Perhaps this is what most users want and certainly this helps
+  Spotify's streaming numbers. I prefer the player to stop at the end of an
+  album though. Luckily, Spotify's Web API can control this setting, so I
+  run a cronjob to unset the repeat setting every minute.
 
