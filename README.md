@@ -50,6 +50,6 @@ SLS has a few more tricks up its sleeve:
   Spotify constantly re-enables the "repeat" button in the player. Perhaps this
   is what most users want and certainly this helps Spotify's streaming numbers.
   I prefer the player to stop at the end of an album though. Luckily, Spotify's
-  Web API can control this setting. So I run a cronjob to unset the repeat
+  Web API can control this setting, so I run a cronjob to unset the repeat
   setting every minute.
 
