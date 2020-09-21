@@ -30,6 +30,8 @@ int unset_repeat(void);
 
 #define SLSOBJ_TYPE_SPOT	"spotify"
 
+#define ALB_LT_MINTRACKCNT	3
+
 
 int
 main(int argc, char **argv)
@@ -139,6 +141,13 @@ main(int argc, char **argv)
 
 	case MODE_LIBDUMP:
 	default:
+		ret = hiredis_del(RK_SPOTIFY_S_ALBUM_IDS, NULL);
+		if(ret != 0) {
+			fprintf(stderr, "Could not delete IDs set.\n");
+			err = -1;
+			goto end_label;
+		}
+
 		printf("Getting saved albums...\n");
 		fflush(stdout);
 		ret = dump_albums(ALBMODE_SAVED_ALBUMS);
@@ -149,7 +158,7 @@ main(int argc, char **argv)
 		}
 		printf("Done.\n");
 	
-		printf("Getting albums from liked tracks...\n");
+		printf("Getting albums to listen to...\n");
 		fflush(stdout);
 		ret = dump_albums(ALBMODE_LIKED_TRACKS);
 		if(ret != 0) {
@@ -260,7 +269,7 @@ end_label:
 #define FILEN_ALBUMS	"spotlib_saved_albums.txt"
 #define FILEN_LT_ALBUMS	"spotlib_liked_track_albums.txt"
 
-int process_items_album(int, cJSON *, bstr_t *, bstr_t *);
+int process_items_album(int, cJSON *, bstr_t *, const char *, const char *);
 
 
 int
@@ -352,7 +361,6 @@ dump_albums(int mode)
 	}
 	bprintf(rediskey_tmp, "%s:tmp:%d", bget(rediskey), getpid());
 
-
 	while(1) {
 
 		ret = bcurl_get(bget(url), &resp);
@@ -380,7 +388,8 @@ dump_albums(int mode)
 			goto end_label;
 		}
 
-		ret = process_items_album(mode, items, out, rediskey_tmp);
+		ret = process_items_album(mode, items, out, bget(rediskey_tmp),
+		    RK_SPOTIFY_S_ALBUM_IDS);
 		if(ret != 0) {
 			fprintf(stderr, "Couldn't process items\n");
 			err = ret;
@@ -447,7 +456,8 @@ end_label:
 
 
 int
-process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
+process_items_album(int mode, cJSON *items, bstr_t *out,
+	const char *rediskey_store, const char *rediskey_ids)
 {
 	cJSON		*item;
 	cJSON		*album;
@@ -465,13 +475,16 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 	slsalb_t	*slsalb;
 	bstr_t		*slsalb_json;
 	int		nadded;
+	int		skip;
+	int		ismemb;
 
 	err = 0;
 	slsalb = NULL;
 	artnam_sub = NULL;
 	slsalb_json = NULL;
 
-	if(items == NULL || out == NULL || bstrempty(rediskey))
+	if(items == NULL || out == NULL || xstrempty(rediskey_store) ||
+	    xstrempty(rediskey_ids))
 		return EINVAL;
 
 	if(mode != ALBMODE_SAVED_ALBUMS && mode != ALBMODE_LIKED_TRACKS)
@@ -525,9 +538,24 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 			}
 		} 
 
+		ret = cjson_get_childstr(album, "id", slsalb->sa_id);
+		if(ret != 0) {
+			fprintf(stderr, "Album didn't contain id\n");
+			err = ENOENT;
+			goto end_label;
+		}
+
 		ret = cjson_get_childstr(album, "uri", slsalb->sa_uri);
 		if(ret != 0) {
 			fprintf(stderr, "Album didn't contain uri\n");
+			err = ENOENT;
+			goto end_label;
+		}
+
+		ret = cjson_get_childint(album, "total_tracks",
+		    &slsalb->sa_trackcnt);
+		if(ret != 0) {
+			fprintf(stderr, "Album didn't contain total_tracks\n");
 			err = ENOENT;
 			goto end_label;
 		}
@@ -640,19 +668,59 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 		printf("%s\n", bget(slsalb_json));
 #endif
 
-		nadded = 0;
-		ret = hiredis_sadd(bget(rediskey), slsalb_json, &nadded);
-		if(ret != 0) {
-			blogf("Couldn't add album to redis!");
+		skip = 0;
+		if(mode == ALBMODE_LIKED_TRACKS) {
+			/* In this mode, we check whether the album is
+			 * already saved. If so, we don't add the album.
+			 * We also don't add the album if if has less than
+			 * the minimum number of tracks.
+			 *
+			 * Ie. this set represents albums to listen to. 
+			 */
+	
+			if(slsalb->sa_trackcnt < ALB_LT_MINTRACKCNT) {
+				++skip;
+			} else {
+				ismemb = 0;
+				ret = hiredis_sismember(rediskey_ids,
+				    slsalb->sa_id, &ismemb);
+				if(ret != 0) {
+					blogf("Couldn't check if ID seen");
+					err = ret;
+					goto end_label;
+				}
+				if(ismemb)
+					++skip;
+			}
 		}
-		if(nadded != 1) {
-			/* This is OK. It means the album is already in
-			 * the set. */
-		}
+
+		if(!skip) {
+			nadded = 0;
+			ret = hiredis_sadd(rediskey_store, slsalb_json,
+			    &nadded);
+			if(ret != 0) {
+				blogf("Couldn't add album to redis!");
+			}
+			if(nadded != 1) {
+				/* This is OK. It means the album is already in
+				 * the set. */
+			}
+		}	
 
 		bclear(slsalb_json);
 
+		if(mode == ALBMODE_SAVED_ALBUMS) {
+			/* Save album's ID. */
+			ret = hiredis_sadd(rediskey_ids, slsalb->sa_id, NULL);
+			if(ret != 0) {
+				blogf("Couldn't add ID");
+				err = ret;
+				goto end_label;
+			}
+		}
+
 		slsalb_uninit(&slsalb);
+
 
 		slsalb = slsalb_init(SLSOBJ_TYPE_SPOT);
 		if(slsalb == NULL) {
