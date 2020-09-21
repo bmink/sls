@@ -34,10 +34,10 @@ to listen to next, instead of being forced to use the various apps' subpar
 browsing models, I start with SLS. Once I decide to play something, I click
 through to the album in the Spotify app (or go play the record).
 
-SLS runs on one of my Raspi servers. The library refresh jobs are run every few
-minutes via a cronjob and the libraries are stored in a Redis database (ie. if
+SLS runs on one of my Raspi servers. The library refresh jobs are run once
+an hour via a cronjob and the libraries are stored in a Redis database (ie. if
 I add an album to my library in the Spotify app, it will show up in Redis --
-and SLS -- automatically within a few minutes). The UI itself is done via a CGI
+and SLS -- automatically within an hour). The UI itself is done via a CGI
 program that is served via lighttpd.
 
 SLS has a few more tricks up its sleeve:
