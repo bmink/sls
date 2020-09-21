@@ -642,8 +642,12 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 
 		nadded = 0;
 		ret = hiredis_sadd(bget(rediskey), slsalb_json, &nadded);
-		if(ret != 0 || nadded != 1) {
+		if(ret != 0) {
 			blogf("Couldn't add album to redis!");
+		}
+		if(nadded != 1) {
+			/* This is OK. It means the album is already in
+			 * the set. */
 		}
 
 		bclear(slsalb_json);
