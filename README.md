@@ -43,8 +43,8 @@ program that is served via lighttpd.
 SLS has a few more tricks up its sleeve:
 
 * Display a random selection of all as well as of newly added albums.
-* Display a random selection "albums to listen to" (all time, as well as new).
-  For SLS an "album to listen to" is any unsaved album that has at least one
+* Display a random selection of "albums to listen to" (all time, as well as
+  new). An "album to listen to" is any unsaved album that has at least one
   track favorited and that has at least three tracks.
 * Automatically unset "repeat" in the player. I find it highly annoying that
   Spotify constantly re-enables the "repeat" button in the player. Perhaps this
