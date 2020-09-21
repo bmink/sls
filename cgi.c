@@ -71,7 +71,8 @@ end_label:
 }
 
 
-#define CGI_MAXITEMS	20
+#define CGI_MAXITEMS_ALL	20
+#define CGI_MAXITEMS_NEW	6
 
 int
 cgi_index(bstr_t *resp, const char *execn)
@@ -81,14 +82,26 @@ cgi_index(bstr_t *resp, const char *execn)
 
 	cgi_header("SLS", resp);
 
-	bprintf(resp, "ALL:\n\n");
+	bprintf(resp, "NEW:\n\n");
 
-	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS, resp);
+	cgi_randitems(RK_SPOTIFY_S_ALBUMS_NEW, CGI_MAXITEMS_NEW, resp);
 
 	bprintf(resp, "\n\n<hr>\n");
-	bprintf(resp, "LISTEN_TO:\n\n");
+	bprintf(resp, "ALL:\n\n");
 
-	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_ALL, CGI_MAXITEMS, resp);
+	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS_ALL, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
+	bprintf(resp, "LISTEN TO NEW:\n\n");
+
+	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_NEW, CGI_MAXITEMS_NEW, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
+	bprintf(resp, "LISTEN TO ALL:\n\n");
+
+	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_ALL, CGI_MAXITEMS_ALL, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
 
 
 	cgi_footer(resp);
