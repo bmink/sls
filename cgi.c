@@ -85,6 +85,12 @@ cgi_index(bstr_t *resp, const char *execn)
 
 	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS, resp);
 
+	bprintf(resp, "\n\n<hr>\n");
+	bprintf(resp, "LISTEN_TO:\n\n");
+
+	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_ALL, CGI_MAXITEMS, resp);
+
+
 	cgi_footer(resp);
 
 	return 0;
