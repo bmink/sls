@@ -40,3 +40,16 @@ I add an album to my library in the Spotify app, it will show up in Redis --
 and SLS -- automatically within a few minutes). The UI itself is done via a CGI
 program that is served via lighttpd.
 
+SLS has a few more tricks up its sleeve:
+
+* Display a random selection of all as well as of newly added albums.
+* Display a random selection of all as well as of new, "albums to listen to".
+  For SLS an "album to listen to" is any unsaved album that has at least one
+  track favorited and that has at least three tracks.
+* Automatically unset "repeat" in the player. I find it highly annoying that
+  Spotify constantly re-enables the "repeat" button in the player. Perhaps this
+  is what most users want and certainly this helps Spotify's streaming numbers.
+  I prefer the player to stop at the end of an album though. Luckily, Spotify's
+  Web API can control this setting. So I run a cronjob to unset the repeat
+  setting every minute.
+
