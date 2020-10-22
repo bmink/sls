@@ -31,7 +31,7 @@ int unset_repeat(void);
 #define SLSOBJ_TYPE_SPOT	"spotify"
 
 #define ALB_LT_MINTRACKCNT	3
-#define ALB_NEW_MAXIDX		25
+#define ALB_NEW_MAXCNT		25
 
 
 int
@@ -271,7 +271,7 @@ end_label:
 #define FILEN_LT_ALBUMS	"spotlib_liked_track_albums.txt"
 
 int process_items_album(int, cJSON *, bstr_t *, const char *, const char *,
-	const char *, int *);
+	const char *, int *, int *);
 
 
 int
@@ -290,7 +290,8 @@ dump_albums(int mode)
 	bstr_t		*rediskey_all_tmp;
 	bstr_t		*rediskey_new;
 	bstr_t		*rediskey_new_tmp;
-	int		idx;
+	int		storedallcnt;
+	int		storednewcnt;
 
 	err = 0;
 	resp = 0;
@@ -386,7 +387,8 @@ dump_albums(int mode)
 	}
 	bprintf(rediskey_new_tmp, "%s:tmp:%d", bget(rediskey_new), getpid());
 
-	idx = 0;
+	storedallcnt = 0;
+	storednewcnt = 0;
 	while(1) {
 
 		ret = bcurl_get(bget(url), &resp);
@@ -416,7 +418,7 @@ dump_albums(int mode)
 
 		ret = process_items_album(mode, items, out,
 		    bget(rediskey_all_tmp), bget(rediskey_new_tmp),
-		    RK_SPOTIFY_S_ALBUM_IDS, &idx);
+		    RK_SPOTIFY_S_ALBUM_IDS, &storedallcnt, &storednewcnt);
 		if(ret != 0) {
 			fprintf(stderr, "Couldn't process items\n");
 			err = ret;
@@ -493,7 +495,7 @@ end_label:
 int
 process_items_album(int mode, cJSON *items, bstr_t *out,
 	const char *rediskey_store_all, const char *rediskey_store_new,
-	const char *rediskey_ids, int *idx)
+	const char *rediskey_ids, int *storedallcnt, int *storednewcnt)
 {
 	cJSON		*item;
 	cJSON		*album;
@@ -742,7 +744,7 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 				 * the set. */
 			}
 
-			if(*idx < ALB_NEW_MAXIDX) {
+			if(*storednewcnt < ALB_NEW_MAXCNT) {
 				nadded = 0;
 				ret = hiredis_sadd(rediskey_store_new,
 				    slsalb_json, &nadded);
@@ -750,7 +752,9 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 					blogf("Couldn't add album to"
 					    " new store!");
 				}
-				if(nadded != 1) {
+				if(nadded == 1) {
+					++*storednewcnt;
+				} else {
 					/* This is OK. It means the album is
 					 * already in the set. */
 				}
@@ -771,7 +775,7 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 
 		slsalb_uninit(&slsalb);
 
-		++*idx;
+		++*storedallcnt;
 
 		slsalb = slsalb_init(SLSOBJ_TYPE_SPOT);
 		if(slsalb == NULL) {
