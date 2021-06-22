@@ -38,7 +38,8 @@ if [[ ! -z $SCOPES ]]; then
 fi
 
 # Start user authentication
-open "$AUTH_URL"
+# Can't get Safari to work with nc reliably!
+echo "Please open this URL in Chrome: $AUTH_URL"
 
 
 # Serve up a response once the redirect happens.
