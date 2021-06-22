@@ -7,8 +7,12 @@
 typedef struct slsalb {
 	bstr_t	*sa_type;
 
+	bstr_t	*sa_id;
+
 	bstr_t	*sa_artist;
 	bstr_t	*sa_name;
+
+	int	sa_trackcnt;
 
 	bstr_t	*sa_uri;
 	bstr_t	*sa_url;

@@ -30,6 +30,13 @@ slsalb_t
 	if(!xstrempty(type))
 		bstrcat(alb->sa_type, type);
 
+	alb->sa_id = binit();
+	if(alb->sa_id == NULL) {
+		blogf("Couldn't allocate id");
+		err = ENOMEM;
+		goto end_label;
+	}
+
 	alb->sa_artist = binit();
 	if(alb->sa_artist == NULL) {
 		blogf("Couldn't allocate artist");
@@ -99,6 +106,7 @@ slsalb_uninit(slsalb_t **alb)
 		return;
 
 	buninit(&(*alb)->sa_type);
+	buninit(&(*alb)->sa_id);
 	buninit(&(*alb)->sa_artist);
 	buninit(&(*alb)->sa_name);
 	buninit(&(*alb)->sa_uri);
@@ -143,7 +151,20 @@ slsalb_tojson(slsalb_t *alb, bstr_t *buf)
 		goto end_label;
 	}
 
+	child = cJSON_AddStringToObject(albj, "id", bget(alb->sa_id));
+	if(child == NULL) {
+		err = ENOEXEC;
+		goto end_label;
+	}
+
+
 	child = cJSON_AddStringToObject(albj, "name", bget(alb->sa_name));
+	if(child == NULL) {
+		err = ENOEXEC;
+		goto end_label;
+	}
+
+	child = cJSON_AddNumberToObject(albj, "trackcnt", alb->sa_trackcnt);
 	if(child == NULL) {
 		err = ENOEXEC;
 		goto end_label;
@@ -235,6 +256,13 @@ slsalb_fromjson(const char *buf, slsalb_t *alb)
                 goto end_label;
         }
 
+        ret = cjson_get_childstr(json, "id", alb->sa_id);
+        if(ret != 0) {
+                blogf("JSON didn't contain id");
+                err = ENOENT;
+                goto end_label;
+        }
+
         ret = cjson_get_childstr(json, "artist", alb->sa_artist);
         if(ret != 0) {
                 blogf("JSON didn't contain artist");
@@ -243,6 +271,13 @@ slsalb_fromjson(const char *buf, slsalb_t *alb)
         }
 
         ret = cjson_get_childstr(json, "name", alb->sa_name);
+        if(ret != 0) {
+                blogf("JSON didn't contain name");
+                err = ENOENT;
+                goto end_label;
+        }
+
+        ret = cjson_get_childint(json, "trackcnt", &alb->sa_trackcnt);
         if(ret != 0) {
                 blogf("JSON didn't contain name");
                 err = ENOENT;

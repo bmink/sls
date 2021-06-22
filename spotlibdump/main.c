@@ -30,6 +30,9 @@ int unset_repeat(void);
 
 #define SLSOBJ_TYPE_SPOT	"spotify"
 
+#define ALB_LT_MINTRACKCNT	3
+#define ALB_NEW_MAXCNT		25
+
 
 int
 main(int argc, char **argv)
@@ -139,6 +142,13 @@ main(int argc, char **argv)
 
 	case MODE_LIBDUMP:
 	default:
+		ret = hiredis_del(RK_SPOTIFY_S_ALBUM_IDS, NULL);
+		if(ret != 0) {
+			fprintf(stderr, "Could not delete IDs set.\n");
+			err = -1;
+			goto end_label;
+		}
+
 		printf("Getting saved albums...\n");
 		fflush(stdout);
 		ret = dump_albums(ALBMODE_SAVED_ALBUMS);
@@ -149,7 +159,7 @@ main(int argc, char **argv)
 		}
 		printf("Done.\n");
 	
-		printf("Getting albums from liked tracks...\n");
+		printf("Getting albums to listen to...\n");
 		fflush(stdout);
 		ret = dump_albums(ALBMODE_LIKED_TRACKS);
 		if(ret != 0) {
@@ -260,7 +270,8 @@ end_label:
 #define FILEN_ALBUMS	"spotlib_saved_albums.txt"
 #define FILEN_LT_ALBUMS	"spotlib_liked_track_albums.txt"
 
-int process_items_album(int, cJSON *, bstr_t *, bstr_t *);
+int process_items_album(int, cJSON *, bstr_t *, const char *, const char *,
+	const char *, int *, int *);
 
 
 int
@@ -275,8 +286,12 @@ dump_albums(int mode)
 	bstr_t		*out;
 	bstr_t		*filen;
 	bstr_t		*filen_tmp;
-	bstr_t		*rediskey;
-	bstr_t		*rediskey_tmp;
+	bstr_t		*rediskey_all;
+	bstr_t		*rediskey_all_tmp;
+	bstr_t		*rediskey_new;
+	bstr_t		*rediskey_new_tmp;
+	int		storedallcnt;
+	int		storednewcnt;
 
 	err = 0;
 	resp = 0;
@@ -285,8 +300,10 @@ dump_albums(int mode)
 	out = NULL;
 	filen = NULL;
 	filen_tmp = NULL;
-	rediskey = NULL;
-	rediskey_tmp = NULL;
+	rediskey_all = NULL;
+	rediskey_all_tmp = NULL;
+	rediskey_new = NULL;
+	rediskey_new_tmp = NULL;
 
 	if(mode != ALBMODE_SAVED_ALBUMS && mode != ALBMODE_LIKED_TRACKS)
 		return EINVAL;
@@ -332,27 +349,46 @@ dump_albums(int mode)
 	}
 	bprintf(filen_tmp, "%s.%d", bget(filen), getpid());
 
-	rediskey = binit();
-	if(!rediskey) {
-		fprintf(stderr, "Couldn't allocate rediskey\n");
+	rediskey_all = binit();
+	if(!rediskey_all) {
+		fprintf(stderr, "Couldn't allocate rediskey_all\n");
 		err = ENOMEM;
 		goto end_label;
 	}
-	if(mode == ALBMODE_SAVED_ALBUMS)
-		bprintf(rediskey, "%s", RK_SPOTIFY_S_ALBUMS_ALL);
-	else
-	if(mode == ALBMODE_LIKED_TRACKS)
-		bprintf(rediskey, "%s", RK_SPOTIFY_LT_ALBUMS_ALL);
-
-	rediskey_tmp = binit();
-	if(!rediskey_tmp) {
-		fprintf(stderr, "Couldn't allocate rediskey_tmp\n");
+	rediskey_new = binit();
+	if(!rediskey_new) {
+		fprintf(stderr, "Couldn't allocate rediskey_new\n");
 		err = ENOMEM;
 		goto end_label;
 	}
-	bprintf(rediskey_tmp, "%s:tmp:%d", bget(rediskey), getpid());
 
+	if(mode == ALBMODE_SAVED_ALBUMS) {
+		bprintf(rediskey_all, "%s", RK_SPOTIFY_S_ALBUMS_ALL);
+		bprintf(rediskey_new, "%s", RK_SPOTIFY_S_ALBUMS_NEW);
+	} else
+	if(mode == ALBMODE_LIKED_TRACKS) {
+		bprintf(rediskey_all, "%s", RK_SPOTIFY_LT_ALBUMS_ALL);
+		bprintf(rediskey_new, "%s", RK_SPOTIFY_LT_ALBUMS_NEW);
+	}
 
+	rediskey_all_tmp = binit();
+	if(!rediskey_all_tmp) {
+		fprintf(stderr, "Couldn't allocate rediskey_all_tmp\n");
+		err = ENOMEM;
+		goto end_label;
+	}
+	bprintf(rediskey_all_tmp, "%s:tmp:%d", bget(rediskey_all), getpid());
+
+	rediskey_new_tmp = binit();
+	if(!rediskey_new_tmp) {
+		fprintf(stderr, "Couldn't allocate rediskey_new_tmp\n");
+		err = ENOMEM;
+		goto end_label;
+	}
+	bprintf(rediskey_new_tmp, "%s:tmp:%d", bget(rediskey_new), getpid());
+
+	storedallcnt = 0;
+	storednewcnt = 0;
 	while(1) {
 
 		ret = bcurl_get(bget(url), &resp);
@@ -380,7 +416,9 @@ dump_albums(int mode)
 			goto end_label;
 		}
 
-		ret = process_items_album(mode, items, out, rediskey_tmp);
+		ret = process_items_album(mode, items, out,
+		    bget(rediskey_all_tmp), bget(rediskey_new_tmp),
+		    RK_SPOTIFY_S_ALBUM_IDS, &storedallcnt, &storednewcnt);
 		if(ret != 0) {
 			fprintf(stderr, "Couldn't process items\n");
 			err = ret;
@@ -414,13 +452,21 @@ dump_albums(int mode)
 		goto end_label;
 	}
 
-	ret = hiredis_rename(bget(rediskey_tmp), bget(rediskey));
+	ret = hiredis_rename(bget(rediskey_all_tmp), bget(rediskey_all));
 	if(ret != 0) {
 		fprintf(stderr, "Couldn't rename redis key '%s' to '%s'\n",
-		    bget(rediskey_tmp), bget(rediskey));
+		    bget(rediskey_all_tmp), bget(rediskey_all));
 		err = ret;
 		goto end_label;
 	}
+	ret = hiredis_rename(bget(rediskey_new_tmp), bget(rediskey_new));
+	if(ret != 0) {
+		fprintf(stderr, "Couldn't rename redis key '%s' to '%s'\n",
+		    bget(rediskey_new_tmp), bget(rediskey_new));
+		err = ret;
+		goto end_label;
+	}
+
 
 end_label:
 
@@ -428,8 +474,8 @@ end_label:
 	buninit(&url);
 	buninit(&out);
 	buninit(&filen);
-	buninit(&rediskey);
-	buninit(&rediskey_tmp);
+	buninit(&rediskey_all);
+	buninit(&rediskey_all_tmp);
 
 	if(!bstrempty(filen_tmp)) {
 		unlink(bget(filen_tmp));
@@ -447,7 +493,9 @@ end_label:
 
 
 int
-process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
+process_items_album(int mode, cJSON *items, bstr_t *out,
+	const char *rediskey_store_all, const char *rediskey_store_new,
+	const char *rediskey_ids, int *storedallcnt, int *storednewcnt)
 {
 	cJSON		*item;
 	cJSON		*album;
@@ -465,13 +513,16 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 	slsalb_t	*slsalb;
 	bstr_t		*slsalb_json;
 	int		nadded;
+	int		skip;
+	int		ismemb;
 
 	err = 0;
 	slsalb = NULL;
 	artnam_sub = NULL;
 	slsalb_json = NULL;
 
-	if(items == NULL || out == NULL || bstrempty(rediskey))
+	if(items == NULL || out == NULL || xstrempty(rediskey_store_all) ||
+	    xstrempty(rediskey_store_new) || xstrempty(rediskey_ids))
 		return EINVAL;
 
 	if(mode != ALBMODE_SAVED_ALBUMS && mode != ALBMODE_LIKED_TRACKS)
@@ -525,9 +576,24 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 			}
 		} 
 
+		ret = cjson_get_childstr(album, "id", slsalb->sa_id);
+		if(ret != 0) {
+			fprintf(stderr, "Album didn't contain id\n");
+			err = ENOENT;
+			goto end_label;
+		}
+
 		ret = cjson_get_childstr(album, "uri", slsalb->sa_uri);
 		if(ret != 0) {
 			fprintf(stderr, "Album didn't contain uri\n");
+			err = ENOENT;
+			goto end_label;
+		}
+
+		ret = cjson_get_childint(album, "total_tracks",
+		    &slsalb->sa_trackcnt);
+		if(ret != 0) {
+			fprintf(stderr, "Album didn't contain total_tracks\n");
 			err = ENOENT;
 			goto end_label;
 		}
@@ -640,15 +706,76 @@ process_items_album(int mode, cJSON *items, bstr_t *out, bstr_t *rediskey)
 		printf("%s\n", bget(slsalb_json));
 #endif
 
-		nadded = 0;
-		ret = hiredis_sadd(bget(rediskey), slsalb_json, &nadded);
-		if(ret != 0 || nadded != 1) {
-			blogf("Couldn't add album to redis!");
+		skip = 0;
+		if(mode == ALBMODE_LIKED_TRACKS) {
+			/* In this mode, we check whether the album is
+			 * already saved. If so, we don't add the album.
+			 * We also don't add the album if if has less than
+			 * the minimum number of tracks.
+			 *
+			 * Ie. this set represents albums to listen to. 
+			 */
+	
+			if(slsalb->sa_trackcnt < ALB_LT_MINTRACKCNT) {
+				++skip;
+			} else {
+				ismemb = 0;
+				ret = hiredis_sismember(rediskey_ids,
+				    slsalb->sa_id, &ismemb);
+				if(ret != 0) {
+					blogf("Couldn't check if ID seen");
+					err = ret;
+					goto end_label;
+				}
+				if(ismemb)
+					++skip;
+			}
 		}
+
+		if(!skip) {
+			nadded = 0;
+			ret = hiredis_sadd(rediskey_store_all, slsalb_json,
+			    &nadded);
+			if(ret != 0) {
+				blogf("Couldn't add album to all store!");
+			}
+			if(nadded != 1) {
+				/* This is OK. It means the album is already in
+				 * the set. */
+			}
+
+			if(*storednewcnt < ALB_NEW_MAXCNT) {
+				nadded = 0;
+				ret = hiredis_sadd(rediskey_store_new,
+				    slsalb_json, &nadded);
+				if(ret != 0) {
+					blogf("Couldn't add album to"
+					    " new store!");
+				}
+				if(nadded == 1) {
+					++*storednewcnt;
+				} else {
+					/* This is OK. It means the album is
+					 * already in the set. */
+				}
+			}
+		}	
 
 		bclear(slsalb_json);
 
+		if(mode == ALBMODE_SAVED_ALBUMS) {
+			/* Save album's ID. */
+			ret = hiredis_sadd(rediskey_ids, slsalb->sa_id, NULL);
+			if(ret != 0) {
+				blogf("Couldn't add ID");
+				err = ret;
+				goto end_label;
+			}
+		}
+
 		slsalb_uninit(&slsalb);
+
+		++*storedallcnt;
 
 		slsalb = slsalb_init(SLSOBJ_TYPE_SPOT);
 		if(slsalb == NULL) {
