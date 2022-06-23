@@ -1,2 +1,2 @@
 # spotlibdump
-Dump's a user's Spotify library metadata
+Dumps a user's Spotify library metadata
