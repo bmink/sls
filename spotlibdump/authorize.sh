@@ -14,18 +14,16 @@
 # as its redirect_uri.
 #
 
-if [[ -z "$1" || -z "$2" ]]; then
-	echo "Invalid arguments"
+if [ -z "$SPOTIFY_CLIENT_ID" ] || [ -z "$SPOTIFY_CLIENT_SECRET" ]; then
+	echo "Spotify client creds not set"
 	exit -1
 fi	
 
 REDIS_CLI=redis6_CLI
-CLIENT_ID=$1
-CLIENT_SECRET=$2
 PORT=8082
 REDIRECT_URI="http%3A%2F%2F127%2E0%2E0%2E1%3A$PORT%2Fcallback"
 SCOPES="playlist-read-private user-library-read user-modify-playback-state"
-AUTH_URL="https://accounts.spotify.com/authorize/?response_type=code&client_id=$CLIENT_ID&redirect_uri=$REDIRECT_URI" # &show_dialog=true"
+AUTH_URL="https://accounts.spotify.com/authorize/?response_type=code&client_id=$SPOTIFY_CLIENT_ID&redirect_uri=$REDIRECT_URI" # &show_dialog=true"
 REDIS_KEY_CREDS="sls:spotify:credentials"
 REDIS_KEY_ACCESSTOK="sls:spotify:access_token"
 REDIS_CLI=redis6_cli
@@ -50,7 +48,7 @@ CODE=$(echo "$RESPONSE" | grep "code=" | sed -e 's/^.*code=//' | sed -e 's/ .*$/
 
 RESPONSE=$(curl -s https://accounts.spotify.com/api/token \
   -H "Content-Type:application/x-www-form-urlencoded" \
-  -H "Authorization: Basic $(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)" \
+  -H "Authorization: Basic $(echo -n "$SPOTIFY_CLIENT_ID:$SPOTIFY_CLIENT_SECRET" | base64)" \
   -d "grant_type=authorization_code&code=$CODE&redirect_uri=$REDIRECT_URI")
 
 #echo $RESPONSE
@@ -66,8 +64,8 @@ echo $RESPONSE | jq -r '.refresh_token'
 
 
 OUT="{ "
-OUT+="\\\"client_id\\\" : \\\"$CLIENT_ID\\\", "
-OUT+="\\\"client_secret\\\" : \\\"$CLIENT_SECRET\\\", "
+OUT+="\\\"client_id\\\" : \\\"$SPOTIFY_CLIENT_ID\\\", "
+OUT+="\\\"client_secret\\\" : \\\"$SPOTIFY_CLIENT_SECRET\\\", "
 OUT+="\\\"refresh_token\\\": \\\" "
 OUT+=`echo $RESPONSE | jq -j '.refresh_token'`
 OUT+="\\\""
