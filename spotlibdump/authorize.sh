@@ -19,7 +19,6 @@ if [ -z "$SPOTIFY_CLIENT_ID" ] || [ -z "$SPOTIFY_CLIENT_SECRET" ]; then
 	exit -1
 fi	
 
-REDIS_CLI=redis6_CLI
 PORT=8082
 REDIRECT_URI="http%3A%2F%2F127%2E0%2E0%2E1%3A$PORT%2Fcallback"
 SCOPES="playlist-read-private user-library-read user-modify-playback-state"
