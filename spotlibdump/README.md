@@ -1,5 +1,6 @@
 # spotlibdump
-Dumps a user's Spotify library metadata
+
+Loads a user's Spotify library metadata into redis
 
 ## How to set up
 
