@@ -5,10 +5,10 @@
 #
 # Usage: authorize.sh <client_id> <client_secret>
 #
-# Generates an access and a refresh token. Credentials will be put in
-# .credentials, while the access token will be put in .accesstoken.
-# check_accesstoken.sh should be run periodically to refresh the
-# access token.
+# Generates an access and a refresh token.
+#
+# Run this on your local machine where you can open a browser. If using with
+# SLS, then the resulting output should be stored in redis on the SLS server.
 #
 # On your Spotify dev dashboard, your app must have "http://localhost:8082/'
 # as its redirect_uri.
@@ -17,11 +17,6 @@ if [[ -z "$1" || -z "$2" ]]; then
 	echo "Invalid arguments"
 	exit -1
 fi	
-
-if [[ -z "$REDIS_ADDR" ]]; then
-	echo "REDIS_ADDR is not set"
-	exit -1
-fi
 
 CLIENT_ID=$1
 CLIENT_SECRET=$2
@@ -54,16 +49,19 @@ RESPONSE=$(curl -s https://accounts.spotify.com/api/token \
   -H "Authorization: Basic $(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)" \
   -d "grant_type=authorization_code&code=$CODE&redirect_uri=http%3A%2F%2Flocalhost%3A$PORT%2F")
 
-#echo $RESPONSE
-#echo "Expires:"
-#echo $RESPONSE | jq -r '.expires_in'
-#
-#echo
-#echo "Access token:"
-#echo $RESPONSE | jq -r '.access_token'
-#echo
-#echo "Refresh token:"
-#echo $RESPONSE | jq -r '.refresh_token'
+echo $RESPONSE
+echo "Expires:"
+echo $RESPONSE | jq -r '.expires_in'
+
+echo
+echo "Access token:"
+echo $RESPONSE | jq -r '.access_token'
+echo
+echo "Refresh token:"
+echo $RESPONSE | jq -r '.refresh_token'
+
+echo "For SLS usage, execute the following on the server hosting SLS:"
+echo
 
 OUT="{"$'\n'
 OUT+="   \"client_id\" : \"$CLIENT_ID\","$'\n'
@@ -73,9 +71,10 @@ OUT+=`echo $RESPONSE | jq -j '.refresh_token'`
 OUT+="\""$'\n'
 OUT+="}"$'\n'
 
-redis-cli -h "$REDIS_ADDR" set "$REDIS_KEY_CREDS" "$OUT"
+echo "redis-cli set \"$REDIS_KEY_CREDS\" "\"$OUT\""
+echo
 
 ACCESS_TOKEN=`echo $RESPONSE | jq -r '.access_token'`
 
-redis-cli -h "$REDIS_ADDR" set "$REDIS_KEY_ACCESSTOK" "$ACCESS_TOKEN"
+echo "redis-cli set "$REDIS_KEY_ACCESSTOK" "\"$ACCESS_TOKEN\""
 

@@ -1,5 +1,5 @@
 #include "hiredis_helper.h"
-#include "hiredis.h"
+#include "hiredis/hiredis.h"
 #include "blog.h"
 #include <errno.h>
 #include <stdarg.h>
