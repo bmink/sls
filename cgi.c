@@ -9,7 +9,7 @@
 
 int cgi_index(bstr_t *, const char *);
 
-int cgi_randitems(const char *, int, bstr_t *);
+int cgi_randitems(const char *, const char *, int, bstr_t *);
 
 void cgi_header(const char *, bstr_t *);
 void cgi_footer(bstr_t *);
@@ -82,27 +82,23 @@ cgi_index(bstr_t *resp, const char *execn)
 
 	cgi_header("SLS", resp);
 
-	bprintf(resp, "NEW:\n\n");
-
-	cgi_randitems(RK_SPOTIFY_S_ALBUMS_NEW, CGI_MAXITEMS_NEW, resp);
-
-	bprintf(resp, "\n\n<hr>\n");
-	bprintf(resp, "ALL:\n\n");
-
-	cgi_randitems(RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS_ALL, resp);
-
-	bprintf(resp, "\n\n<hr>\n");
-	bprintf(resp, "LISTEN TO NEW:\n\n");
-
-	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_NEW, CGI_MAXITEMS_NEW, resp);
-
-	bprintf(resp, "\n\n<hr>\n");
-	bprintf(resp, "LISTEN TO ALL:\n\n");
-
-	cgi_randitems(RK_SPOTIFY_LT_ALBUMS_ALL, CGI_MAXITEMS_ALL, resp);
+	cgi_randitems("NEW", RK_SPOTIFY_S_ALBUMS_NEW, CGI_MAXITEMS_NEW, resp);
 
 	bprintf(resp, "\n\n<hr>\n");
 
+	cgi_randitems("ALL", RK_SPOTIFY_S_ALBUMS_ALL, CGI_MAXITEMS_ALL, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
+
+	cgi_randitems("LISTEN TO NEW", RK_SPOTIFY_LT_ALBUMS_NEW,
+	    CGI_MAXITEMS_NEW, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
+
+	cgi_randitems("LISTEN TO ALL", RK_SPOTIFY_LT_ALBUMS_ALL,
+	    CGI_MAXITEMS_ALL, resp);
+
+	bprintf(resp, "\n\n<hr>\n");
 
 	cgi_footer(resp);
 
@@ -136,6 +132,21 @@ cgi_header(const char *title, bstr_t *resp)
 	bstrcat_entenc(resp, title);
 	bprintf(resp, "</title>\n");
 	bprintf(resp, " </head>\n");
+	bprintf(resp, "<script>\n");
+	bprintf(resp, "let hiddenAt = null;\n"
+		      "const TIMEOUT = 5 * 60 * 1000; // 5 minutes\n"
+		      "document.addEventListener('visibilitychange', () => {\n"
+		      "  if (document.hidden) {\n"
+		      "    hiddenAt = Date.now();\n"
+		      "  } else {\n"
+		   "    if (hiddenAt && (Date.now() - hiddenAt) > TIMEOUT) {\n"
+		      "      window.location.reload();\n"
+		      "    }\n"
+		      "    hiddenAt = null;"
+		      "  }\n"
+		      "});");
+	bprintf(resp, "</script>\n");
+
 	/* Using this weird looking assignment below seems to do what we
 	 * want, namely to jump back to the top of the page upon reload.
 	 * Using location.reload(); doesn't jump back to the top. */
@@ -157,7 +168,7 @@ void cgi_footer(bstr_t *resp)
 
 
 int
-cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
+cgi_randitems(const char *label, const char *rediskey, int maxcnt, bstr_t *resp)
 {
 	int 		err;
 	barr_t		*elems;
@@ -172,6 +183,14 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 	err = 0;
 	elems = NULL;
 	alb = NULL;
+
+	bprintf(resp, "<div style=\"display: flex;"
+	    " justify-content: space-between;\">\n");
+	bprintf(resp, "<span>%s:</span>\n", label);
+	bprintf(resp, "<span><a href=\"javascript:location.reload()\">"
+	    "Refresh</a></span>\n");
+	bprintf(resp, "</div>");
+	bprintf(resp, "\n\n");
 
 	elems = barr_init(sizeof(bstr_t));
 	if(elems == NULL) {
@@ -240,7 +259,6 @@ cgi_randitems(const char *rediskey, int maxcnt, bstr_t *resp)
 		bprintf(resp, " <td></td></tr>\n");
 
 	bprintf(resp, "</table>\n");
-
 
 end_label:
 

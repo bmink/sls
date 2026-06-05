@@ -47,12 +47,14 @@ main(int argc, char **argv)
 	datadir = NULL;
 	mode = MODE_LIBDUMP;
 
+printf("0\n"); fflush(stdout);
 	execn = basename(argv[0]);
 	if(xstrempty(execn)) {
 		fprintf(stderr, "Can't get executable name\n");
 		err = -1;
 		goto end_label;
 	}	
+printf("1\n"); fflush(stdout);
 
 	ret = blog_init(execn);
 	if(ret != 0) {
@@ -61,11 +63,14 @@ main(int argc, char **argv)
 		goto end_label;
 	}
 
+printf("2\n"); fflush(stdout);
+
 	ret = hiredis_init();
 	if(ret != 0) {
 		fprintf(stderr, "Could not connect to redis\n");
 		goto end_label;
 	}
+printf("3\n"); fflush(stdout);
 
 	datadir = binit();
 	if(datadir == NULL) {
@@ -80,6 +85,9 @@ main(int argc, char **argv)
 		err = -1;
 		goto end_label;
 	}
+
+printf("3\n"); fflush(stdout);
+
 	bprintf(datadir, "/.%s", execn);
 	if(!bfs_isdir(bget(datadir))) {
 		ret = bfs_mkdir(bget(datadir));
@@ -515,6 +523,7 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 	int		nadded;
 	int		skip;
 	int		ismemb;
+	bstr_t		*added_at;
 
 	err = 0;
 	slsalb = NULL;
@@ -549,9 +558,19 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 		goto end_label;
 	}
 
+	added_at = binit();
+	if(!added_at) {
+		fprintf(stderr, "Couldn't allocate added_at\n");
+		err = ENOMEM;
+		goto end_label;
+	}
+
+
 	for(item = items->child; item; item = item->next) {
 
 		if(mode == ALBMODE_SAVED_ALBUMS) {
+			bclear(added_at);
+			ret = cjson_get_childstr(item, "added_at", added_at);
 			album = cJSON_GetObjectItemCaseSensitive(item, "album");
 			if(!album) {
 				fprintf(stderr, "Item didn't contain album\n");
@@ -691,6 +710,7 @@ process_items_album(int mode, cJSON *items, bstr_t *out,
 		printf("art=%s\n", bget(slsalb->sa_artist));
 		printf("alb=%s\n", bget(slsalb->sa_name));
 		printf("uri=%s\n", bget(slsalb->sa_uri));
+		printf("added_at=%s\n", bget(added_at));
 		printf("\n");
 #endif
 		bprintf(out, "%s - %s | %s\n", bget(slsalb->sa_artist),
