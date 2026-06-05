@@ -140,7 +140,12 @@ cgi_header(const char *title, bstr_t *resp)
 		      "    hiddenAt = Date.now();\n"
 		      "  } else {\n"
 		   "    if (hiddenAt && (Date.now() - hiddenAt) > TIMEOUT) {\n"
-		      "      window.location.reload();\n"
+
+		      /* Reload and keep scrolling position */
+//		      "      window.location.reload();\n"
+
+		      /* Reload and go to top */
+		      "      location.href = location.href;\n"
 		      "    }\n"
 		      "    hiddenAt = null;"
 		      "  }\n"
